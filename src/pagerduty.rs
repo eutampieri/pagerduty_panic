@@ -25,10 +25,15 @@ pub struct TriggerEvent {
 fn send_event(event: &TriggerEvent) -> Result<String, u16> {
     let response = ureq::post("https://events.pagerduty.com/v2/enqueue")
         .send_string(serde_json::to_string(event).map_err(|_| 500u16)?.as_str());
-    if response.ok() {
-        Ok(event.dedup_key.clone())
-    } else {
-        Err(response.status())
+    match response {
+        Ok(response) => {
+            if (response.status() == 200) {
+                Ok(event.dedup_key.clone())
+            } else {
+                Err(response.status())
+            }
+        }
+        Err(e) => Err(500),
     }
 }
 
