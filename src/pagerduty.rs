@@ -27,13 +27,13 @@ fn send_event(event: &TriggerEvent) -> Result<String, u16> {
         .send_string(serde_json::to_string(event).map_err(|_| 500u16)?.as_str());
     match response {
         Ok(response) => {
-            if (response.status() == 200) {
+            if response.status() == 200 {
                 Ok(event.dedup_key.clone())
             } else {
                 Err(response.status())
             }
         }
-        Err(e) => Err(500),
+        Err(_) => Err(500),
     }
 }
 
