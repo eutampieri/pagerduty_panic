@@ -1,14 +1,17 @@
 [package]
 name = "pagerduty_panic"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Eugenio Tampieri <eugenio@eutampieri.eu>"]
 edition = "2018"
 license = "MIT"
 description = "Send panic data to PagerDuty"
+keywords = ["pagerduty", "panic"]
+categories = ["api-bindings"]
+repository = "https://github.com/eutampieri/pagerduty_panic"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ureq = "1.5"
+ureq = "2.5"
 serde_json = "1.0"
 serde = {version = "1.0", features = ["derive"]}
